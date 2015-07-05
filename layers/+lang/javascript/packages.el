@@ -15,6 +15,7 @@
     coffee-mode
     company
     company-tern
+    evil-matchit
     flycheck
     js-doc
     js2-mode
@@ -96,6 +97,18 @@
       (evil-leader/set-key-for-mode 'js2-mode "mze" 'js2-mode-toggle-element)
       (evil-leader/set-key-for-mode 'js2-mode "mzF" 'js2-mode-toggle-hide-functions)
       (evil-leader/set-key-for-mode 'js2-mode "mzC" 'js2-mode-toggle-hide-comments))))
+
+(defun javascript/post-init-evil-matchit ()
+  (use-package evil-matchit-javascript
+    :defer t
+    :init
+    (progn
+      :init
+      (progn
+        (global-evil-matchit-mode 1)
+        (plist-put evilmi-plugins 'js2-mode' ((evilmi-simple-get-tag evilmi-simple-jump)
+                                              (evilmi--javascript-find-open-brace evilmi-javascript-jump evilmi-javascript-get-tag)))
+        (add-hook `js2-mode `evil-matchit-mode)))))
 
 (defun javascript/init-js2-refactor ()
   (use-package js2-refactor
