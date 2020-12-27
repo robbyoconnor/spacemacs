@@ -1,4 +1,4 @@
-;;; funcs.el --- ipython-notebook Layer packages File for Spacemacs
+;;; funcs.el --- ipython-notebook Layer function File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
@@ -41,8 +41,9 @@
             (funcall (car args) matches))
         (error (error (format "Error %s running ein company completer." err))))))
   (defun spacemacs//ein-setup-company ()
-    (spacemacs|add-company-backends
-      :backends spacemacs/ein-company
-      :modes ein:notebook-mode
-      :append-hooks nil
-      :call-hooks t)))
+    (if (eq ein-backend 'jupyter)
+        (spacemacs|add-company-backends
+          :backends spacemacs/ein-company
+          :modes ein:notebook-mode
+          :append-hooks nil
+          :call-hooks t))))
